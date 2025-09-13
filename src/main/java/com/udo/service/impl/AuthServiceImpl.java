@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -62,7 +63,7 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public AuthResponse login(UserDTO userDTO) {
+    public AuthResponse login(UserDTO userDTO) throws UserException {
         String email = userDTO.getEmail();
         String password = userDTO.getPassword();
 
@@ -75,10 +76,22 @@ public class AuthServiceImpl implements AuthService {
         User user = userRepository.findByEmail(email);
         user.setLastLoginAt(LocalDateTime.now());
         userRepository.save(user);
-        return null;
+
+        AuthResponse authResponse = new AuthResponse();
+        authResponse.setJwt(jwt);
+        authResponse.setMessage("Login Successfully");
+        authResponse.setUserDTO(UserMapper.toDTO(user));
+        return authResponse;
     }
 
-    private Authentication authenticate(String email, String password) {
-
+    private Authentication authenticate(String email, String password) throws UserException {
+        UserDetails userDetails = customUserImplementation.loadUserByUsername(email);
+        if(userDetails == null){
+            throw new UserException("Email id doesn't exist" + email);
+        }
+        if(!passwordEncoder.matches(password, userDetails.getPassword())){
+            throw new UserException("Password doesn't match");
+        }
+        return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 }
