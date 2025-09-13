@@ -12,11 +12,13 @@ import com.udo.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Collection;
 
 @Service
 @RequiredArgsConstructor
@@ -65,6 +67,14 @@ public class AuthServiceImpl implements AuthService {
         String password = userDTO.getPassword();
 
         Authentication authentication = authenticate(email, password);
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+        String role = authorities.iterator().next().getAuthority();
+        String jwt = jwtProvider.generateToken(authentication);
+        User user = userRepository.findByEmail(email);
+        user.setLastLoginAt(LocalDateTime.now());
+        userRepository.save(user);
         return null;
     }
 
