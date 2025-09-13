@@ -61,6 +61,14 @@ public class AuthServiceImpl implements AuthService {
 
     @Override
     public AuthResponse login(UserDTO userDTO) {
+        String email = userDTO.getEmail();
+        String password = userDTO.getPassword();
+
+        Authentication authentication = authenticate(email, password);
         return null;
+    }
+
+    private Authentication authenticate(String email, String password) {
+
     }
 }
