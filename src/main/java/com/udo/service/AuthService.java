@@ -7,5 +7,5 @@ import com.udo.payload.response.AuthResponse;
 public interface AuthService {
     AuthResponse signup(UserDTO userDTO) throws UserException;
 
-    AuthResponse login(UserDTO userDTO);
+    AuthResponse login(UserDTO userDTO) throws UserException;
 }
