@@ -8,12 +8,13 @@ public class UserMapper {
     public static UserDTO toDTO(User savedUser){
         UserDTO userDTO = new UserDTO();
         userDTO.setId(savedUser.getId());
-        savedUser.setEmail(savedUser.getEmail());
-        savedUser.setRole(savedUser.getRole());
-        savedUser.setCreateAt(savedUser.getCreateAt());
-        savedUser.setUpdateAt(savedUser.getUpdateAt());
-        savedUser.setLastLoginAt(savedUser.getLastLoginAt());
-        savedUser.setPhone(savedUser.getPhone());
+        userDTO.setEmail(savedUser.getEmail());
+        userDTO.setRole(savedUser.getRole());
+        userDTO.setCreatedAt(savedUser.getCreateAt());
+        userDTO.setUpdatedAt(savedUser.getUpdateAt());
+        userDTO.setLastLogin(savedUser.getLastLoginAt());
+        userDTO.setPhone(savedUser.getPhone());
+        userDTO.setFullName(savedUser.getFullName());
         return userDTO;
     }
 }
