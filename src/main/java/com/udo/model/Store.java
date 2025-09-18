@@ -30,4 +30,15 @@ public class Store {
     private String storeType;
     private StoreStatus status;
     private StoreContact contact = new StoreContact();
+
+    @PrePersist
+    protected void onCreate(){
+        createdAt = LocalDateTime.now();
+        status = StoreStatus.PENDING;
+    }
+
+    @PreUpdate
+    protected void onUpdate(){
+        updatedAt = LocalDateTime.now();
+    }
 }
