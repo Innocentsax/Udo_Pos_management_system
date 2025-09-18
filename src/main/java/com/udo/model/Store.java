@@ -1,0 +1,33 @@
+package com.udo.model;
+
+import com.udo.domain.StoreStatus;
+import jakarta.persistence.*;
+import lombok.*;
+
+import java.time.LocalDateTime;
+
+@Getter
+@Setter
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@EqualsAndHashCode
+public class Store {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false)
+    private String brand;
+
+    @OneToOne
+    private User storeAdmin;
+
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private String description;
+    private String storeType;
+    private StoreStatus status;
+    private StoreContact contact = new StoreContact();
+}
