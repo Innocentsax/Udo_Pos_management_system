@@ -29,6 +29,8 @@ public class Store {
     private String description;
     private String storeType;
     private StoreStatus status;
+
+    @Embedded
     private StoreContact contact = new StoreContact();
 
     @PrePersist
