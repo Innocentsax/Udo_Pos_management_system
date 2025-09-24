@@ -1,5 +1,6 @@
 package com.udo.service.impl;
 
+import com.udo.mapper.StoreMapper;
 import com.udo.model.Store;
 import com.udo.model.User;
 import com.udo.payload.DTO.StoreDTO;
@@ -20,7 +21,8 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public StoreDTO createStore(StoreDTO storeDTO, User user) {
-        return null;
+        Store store = StoreMapper.toEntity(storeDTO, user);
+        return StoreMapper.toDTO(storeRepository.save(store));
     }
 
     @Override
