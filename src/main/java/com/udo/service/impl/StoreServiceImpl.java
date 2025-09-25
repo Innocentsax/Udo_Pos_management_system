@@ -1,5 +1,6 @@
 package com.udo.service.impl;
 
+import com.udo.exceptions.UserException;
 import com.udo.mapper.StoreMapper;
 import com.udo.model.Store;
 import com.udo.model.User;
@@ -35,12 +36,13 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<StoreDTO> getAllStore() {
-        return List.of();
+        return storeRepository.findAll();
     }
 
     @Override
-    public Store getStoreByAdmin() {
-        return null;
+    public Store getStoreByAdmin() throws UserException {
+        User admin = userService.getCurrentUser();
+        return storeRepository.findByStoreAdminId(admin.getId());
     }
 
     @Override
