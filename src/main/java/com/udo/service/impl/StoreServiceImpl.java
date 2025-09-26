@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -36,7 +37,8 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<StoreDTO> getAllStore() {
-        return storeRepository.findAll();
+        List<Store> dtos = storeRepository.findAll();
+        return dtos.stream().map(StoreMapper::toDTO).collect(Collectors.toList());
     }
 
     @Override
