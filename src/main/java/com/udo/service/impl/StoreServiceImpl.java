@@ -48,7 +48,14 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public StoreDTO updateStore(Long id, StoreDTO storeDTO) {
+    public StoreDTO updateStore(Long id, StoreDTO storeDTO) throws Exception {
+        User currentUser = userService.getCurrentUser();
+        Store existingStore = storeRepository.findByStoreAdminId(currentUser.getId());
+        if(existingStore == null){
+            throw new Exception("Store not found");
+        }
+        existingStore.setBrand(storeDTO.getBrand());
+        existingStore.setDescription(storeDTO.getDescription());
         return null;
     }
 
@@ -58,7 +65,12 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public StoreDTO getStoreByEmployee() {
-        return null;
+    public StoreDTO getStoreByEmployee() throws UserException {
+        User currentUser = userService.getCurrentUser();
+
+        if(currentUser == null){
+            throw new UserException("You don't have permission to access this store");
+        }
+        return StoreMapper.toDTO(currentUser.getStore());
     }
 }
