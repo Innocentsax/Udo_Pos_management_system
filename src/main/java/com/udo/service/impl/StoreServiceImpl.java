@@ -56,6 +56,13 @@ public class StoreServiceImpl implements StoreService {
         }
         existingStore.setBrand(storeDTO.getBrand());
         existingStore.setDescription(storeDTO.getDescription());
+
+        if(storeDTO.getStoreType() != null){
+            existingStore.setStoreType(storeDTO.getStoreType());
+        }
+        if(storeDTO.getContact() != null){
+            existingStore.setContact(storeDTO.getContact());
+        }
         return null;
     }
 
