@@ -3,6 +3,7 @@ package com.udo.service.impl;
 import com.udo.exceptions.UserException;
 import com.udo.mapper.StoreMapper;
 import com.udo.model.Store;
+import com.udo.model.StoreContact;
 import com.udo.model.User;
 import com.udo.payload.DTO.StoreDTO;
 import com.udo.repository.StoreRepository;
@@ -61,9 +62,15 @@ public class StoreServiceImpl implements StoreService {
             existingStore.setStoreType(storeDTO.getStoreType());
         }
         if(storeDTO.getContact() != null){
-
+            StoreContact contact = StoreContact.builder()
+                    .address(storeDTO.getContact().getAddress())
+                    .phone(storeDTO.getContact().getPhone())
+                    .email(storeDTO.getContact().getEmail())
+                    .build();
+            existingStore.setContact(contact);
         }
-        return null;
+        Store updateStore = storeRepository.save(existingStore);
+        return StoreMapper.toDTO(updateStore);
     }
 
     @Override
