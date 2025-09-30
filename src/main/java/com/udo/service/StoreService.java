@@ -13,6 +13,6 @@ public interface StoreService {
     List<StoreDTO> getAllStore();
     Store getStoreByAdmin() throws UserException;
     StoreDTO updateStore(Long id, StoreDTO storeDTO) throws Exception;
-    StoreDTO deleteStore(Long id);
+    void deleteStore(Long id) throws UserException;
     StoreDTO getStoreByEmployee() throws UserException;
 }
