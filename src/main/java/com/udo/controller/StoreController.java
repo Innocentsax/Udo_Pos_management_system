@@ -22,4 +22,10 @@ public class StoreController {
         User user = userService.getUserFromJwtToken(jwt);
         return ResponseEntity.ok(storeService.createStore(storeDTO, user));
     }
+
+    @PostMapping
+    public ResponseEntity<StoreDTO> getStoreById(
+            @PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception {
+        return ResponseEntity.ok(storeService.getStoreById(id));
+    }
 }
