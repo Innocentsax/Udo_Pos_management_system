@@ -1,6 +1,7 @@
 package com.udo.controller;
 
 import com.udo.exceptions.UserException;
+import com.udo.mapper.StoreMapper;
 import com.udo.model.User;
 import com.udo.payload.DTO.StoreDTO;
 import com.udo.service.StoreService;
@@ -8,6 +9,8 @@ import com.udo.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,9 +26,21 @@ public class StoreController {
         return ResponseEntity.ok(storeService.createStore(storeDTO, user));
     }
 
-    @PostMapping
+    @GetMapping
     public ResponseEntity<StoreDTO> getStoreById(
             @PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception {
         return ResponseEntity.ok(storeService.getStoreById(id));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<StoreDTO>> getAllStore(
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        return ResponseEntity.ok(storeService.getAllStore());
+    }
+
+    @GetMapping("/admin")
+    public ResponseEntity<StoreDTO> getStoreByAdmin(
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        return ResponseEntity.ok(StoreMapper.toDTO(storeService.getStoreByAdmin()));
     }
 }
