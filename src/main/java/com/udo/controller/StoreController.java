@@ -43,4 +43,10 @@ public class StoreController {
             @RequestHeader("Authorization") String jwt) throws Exception {
         return ResponseEntity.ok(StoreMapper.toDTO(storeService.getStoreByAdmin()));
     }
+
+    @GetMapping("/employee")
+    public ResponseEntity<StoreDTO> getStoreByEmployee(
+            @RequestHeader("Authorization") String jwt) throws Exception {
+        return ResponseEntity.ok(storeService.getStoreByEmployee());
+    }
 }
