@@ -49,4 +49,10 @@ public class StoreController {
             @RequestHeader("Authorization") String jwt) throws Exception {
         return ResponseEntity.ok(storeService.getStoreByEmployee());
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StoreDTO> updateStore(@PathVariable Long id,
+                                                @RequestBody StoreDTO storeDTO) throws Exception {
+        return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
+    }
 }
