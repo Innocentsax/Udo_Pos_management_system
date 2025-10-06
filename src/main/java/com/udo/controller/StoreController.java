@@ -55,4 +55,10 @@ public class StoreController {
                                                 @RequestBody StoreDTO storeDTO) throws Exception {
         return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<StoreDTO> deleteStore(@PathVariable Long id,
+                                                @RequestBody StoreDTO storeDTO) throws Exception {
+        return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
+    }
 }
