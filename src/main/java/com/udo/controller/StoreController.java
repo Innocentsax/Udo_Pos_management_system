@@ -4,6 +4,7 @@ import com.udo.exceptions.UserException;
 import com.udo.mapper.StoreMapper;
 import com.udo.model.User;
 import com.udo.payload.DTO.StoreDTO;
+import com.udo.payload.response.ApiResponse;
 import com.udo.service.StoreService;
 import com.udo.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -57,8 +58,10 @@ public class StoreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<StoreDTO> deleteStore(@PathVariable Long id,
-                                                @RequestBody StoreDTO storeDTO) throws Exception {
-        return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
+    public ResponseEntity<ApiResponse> deleteStore(@PathVariable Long id) throws Exception {
+        storeService.deleteStore(id);
+        ApiResponse apiResponse = new ApiResponse();
+        apiResponse.setMessage("Store deleted successfully");
+        return ResponseEntity.ok(apiResponse);
     }
 }
