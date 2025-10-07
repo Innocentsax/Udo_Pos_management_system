@@ -1,5 +1,6 @@
 package com.udo.service;
 
+import com.udo.domain.StoreStatus;
 import com.udo.exceptions.UserException;
 import com.udo.model.Store;
 import com.udo.model.User;
@@ -15,4 +16,5 @@ public interface StoreService {
     StoreDTO updateStore(Long id, StoreDTO storeDTO) throws Exception;
     void deleteStore(Long id) throws UserException;
     StoreDTO getStoreByEmployee() throws UserException;
+    StoreDTO moderateStore(Long id, StoreStatus status) throws Exception;
 }
