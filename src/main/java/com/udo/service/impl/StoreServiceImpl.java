@@ -1,5 +1,6 @@
 package com.udo.service.impl;
 
+import com.udo.domain.StoreStatus;
 import com.udo.exceptions.UserException;
 import com.udo.mapper.StoreMapper;
 import com.udo.model.Store;
@@ -88,4 +89,15 @@ public class StoreServiceImpl implements StoreService {
         }
         return StoreMapper.toDTO(currentUser.getStore());
     }
+
+    @Override
+    public StoreDTO moderateStore(Long id, StoreStatus status) throws Exception {
+        Store store = storeRepository.findById(id).orElseThrow(
+                () -> new Exception("Store not found...")
+        );
+        store.setStatus(status);
+        Store updatedStore = storeRepository.save(store);
+        return StoreMapper.toDTO(updatedStore);
+    }
+
 }
