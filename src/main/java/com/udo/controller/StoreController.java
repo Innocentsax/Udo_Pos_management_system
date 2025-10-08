@@ -1,5 +1,6 @@
 package com.udo.controller;
 
+import com.udo.domain.StoreStatus;
 import com.udo.exceptions.UserException;
 import com.udo.mapper.StoreMapper;
 import com.udo.model.User;
@@ -55,6 +56,12 @@ public class StoreController {
     public ResponseEntity<StoreDTO> updateStore(@PathVariable Long id,
                                                 @RequestBody StoreDTO storeDTO) throws Exception {
         return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<StoreDTO> moderateStore(@PathVariable Long id,
+                                                  @RequestParam StoreStatus status) throws Exception {
+        return ResponseEntity.ok(storeService.moderateStore(id, status));
     }
 
     @DeleteMapping("/{id}")
