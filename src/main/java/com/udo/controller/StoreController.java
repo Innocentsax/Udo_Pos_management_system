@@ -21,20 +21,14 @@ public class StoreController {
     private final StoreService storeService;
     private final UserService userService;
 
-    @PostMapping
+    @PostMapping()
     public ResponseEntity<StoreDTO> createStore(@RequestBody StoreDTO storeDTO,
                                                 @RequestHeader("Authorization") String jwt) throws UserException {
         User user = userService.getUserFromJwtToken(jwt);
         return ResponseEntity.ok(storeService.createStore(storeDTO, user));
     }
 
-    @GetMapping
-    public ResponseEntity<StoreDTO> getStoreById(
-            @PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception {
-        return ResponseEntity.ok(storeService.getStoreById(id));
-    }
-
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<List<StoreDTO>> getAllStore(
             @RequestHeader("Authorization") String jwt) throws Exception {
         return ResponseEntity.ok(storeService.getAllStore());
@@ -58,13 +52,19 @@ public class StoreController {
         return ResponseEntity.ok(storeService.updateStore(id, storeDTO));
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{id}/moderate")
     public ResponseEntity<StoreDTO> moderateStore(@PathVariable Long id,
                                                   @RequestParam StoreStatus status) throws Exception {
         return ResponseEntity.ok(storeService.moderateStore(id, status));
     }
 
-    @DeleteMapping("/{id}")
+    @GetMapping("/{id}")
+    public ResponseEntity<StoreDTO> getStoreById(
+            @PathVariable Long id, @RequestHeader("Authorization") String jwt) throws Exception {
+        return ResponseEntity.ok(storeService.getStoreById(id));
+    }
+
+    @DeleteMapping("{id}")
     public ResponseEntity<ApiResponse> deleteStore(@PathVariable Long id) throws Exception {
         storeService.deleteStore(id);
         ApiResponse apiResponse = new ApiResponse();
