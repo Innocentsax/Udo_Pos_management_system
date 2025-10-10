@@ -16,7 +16,7 @@ Cloud & Integrations: Cloudinary (image uploads), Stripe & Razorpay (payments)
 
 ## ⚡ Key Features
 
-### 👨‍💼 Cashier Terminal
+### 👨‍💼 Cashier Terminal.
 
 - Create Orders & Process Payments
 
